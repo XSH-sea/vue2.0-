@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div @click="show3()">
+            <p @click="show2()">
+                <!-- <button @click="show1($event)">点击</button> -->
+                <!-- @事件.stop vue阻止事件冒泡的方式 -->
+                <button @click.stop="show1($event)">点击</button>
+            </p>
+        </div>
+
+
+        <hr>
+        <!-- @事件.prevent阻止事件的默认行为 -->
+        <a href="#" @click.prevent="show4()">点击链接</a>
+    </div>
+
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                show1() {
+                    console.log(1);
+                    //原生js方法阻止事件冒泡
+                    //e.stopPropagation();
+                },
+                show2() {
+                    console.log(2);
+                },
+                show3() {
+                    console.log(3);
+                },
+                show4() {
+                    console.log(4);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <ul>
+            <!-- 普通的循环 -->
+            <!-- <li v-for="val in arr">{{val}}</li> -->
+            <!-- 只输出了值 -->
+            <!-- <li v-for="val in user">{{val}}</li> -->
+
+            <!-- 键值的循环 -->
+            <!-- 索引和值的位置相反 先值再索引 （val，index） -->
+            <!-- <li v-for="(val,index) in arr">{{index}}={{val}}</li> -->
+
+
+            <!-- :key 通过指定:key属性绑定唯一的key，当元素更新时可以直接复用元素，提高效率 -->
+            <!-- <li v-for="(val, index) in arr" :key="index">{{val}}</li> -->
+
+            <li v-for="(val,index) in users">{{index+1}},{{val.name}},{{val.age}},{{val.sex}}</li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arr: [123, 23, 1, 42, 425, 65, 1123],
+                user: { name: '十一郎', age: 13, sex: 'man' },
+                users: [
+                    { name: '十一郎', age: 13, sex: 'man' },
+                    { name: '十', age: 15, sex: 'man' },
+                    { name: '十一', age: 17, sex: 'man' }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

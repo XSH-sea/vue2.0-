@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .a {
+            color: red;
+            font-size: 20px;
+        }
+
+        .c {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- class属性绑定的方式 -->
+        <p :class="b">绑定class方式1</p>
+
+        <p :class="[b,d]">绑定class方式2 绑定多个class</p>
+
+        <!-- 传入json false表示不引用 true表示引用 -->
+        <p :class="{a:false,c:true}">绑定class方式3 json形式 最常用</p>
+
+        <p :class="hello">绑定class方式4 变量引用json形式</p>
+
+
+        <!-- style属性绑定的方式 -->
+        <p :style="x">style方式一</p>
+
+        <p :style="[x,y]">style方式一 数组形式</p>
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                b: 'a',
+                d: 'c',
+                hello: {
+                    a: true,
+                    c: true
+                },
+                x: { color: 'bule', fontSize: '40px' },
+                y: { backgroundColor: 'red' }
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        用户名：<input type="text" v-model="name">
+        <br>
+
+        {{name}}<br>
+        {{age}}<br>
+        {{flag}}<br>
+        {{nums}}<br>
+        {{user}}
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                age: 21,
+                flag: false,
+                nums: [213, 3424, 535],
+                user: { id: 2143, name: '十一郎' }
+            }
+        });
+    </script>
+</body>
+
+</html>

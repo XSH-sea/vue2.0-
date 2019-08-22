@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- show 调用的函数不传参数的时候可以去掉括号 -->
+        <!-- v-on:可以简写为@ -->
+        <button v-on:click="show">点</button>
+        <button @click="add()">点击添加</button><br>
+        {{arr}}
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arr: [123, 2211, 532, 36, 6]
+            },
+            methods: {
+                show: function () {
+                    alert('十一郎');
+                },
+                add() {
+                    this.arr.push(78);//this表示当前的vue实例
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

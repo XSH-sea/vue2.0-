@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/vue.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center">添加用户</h2>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="name" class="control-label col-sm-2 col-sm-offset-2">姓名：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="name" v-model="user.name" placeholder="请输入姓名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age" class="control-label col-sm-2 col-sm-offset-2">年龄：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="age" v-model="user.age" placeholder="请输入年龄">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="control-label col-sm-2 col-sm-offset-2">姓名：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="email" v-model="user.email" placeholder="请输入邮箱">
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <input type="button" value="添加" class="btn btn-primary" v-on:click="addUser">
+                <input type="reset" value="重置" class="btn btn-primary">
+            </div>
+        </form>
+        <hr>
+        <table class="table table-bordered table-hover">
+            <caption class="h3 text-center text-info">用户列表</caption>
+            <thead>
+                <tr>
+                    <th class="text-center">序号</th>
+                    <th class="text-center">姓名</th>
+                    <th class="text-center">年龄</th>
+                    <th class="text-center">邮箱</th>
+                    <th class="text-center">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(user, index) in users" class="text-center">
+                    <td>{{index+1}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        <button data-toggle="modal" data-target="#del" v-on:click="nowIndex=index">删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="text-right">
+                        <button data-toggle="modal" data-target="#del" v-on:click="nowIndex=-1">删除所有</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="modal" id="del">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title" v-show="nowIndex!=-1">
+                            确认删除用：{{users[nowIndex]?users[nowIndex].name:''}} 吗？</h4>
+                        <h4 class="modal-title" v-show="nowIndex==-1">确认全部删除吗？</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <button class="btn btn-primary" data-dismiss="modal" v-on:click="delUser">确认</button>
+                        <button class="btn btn-primary" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '.container',
+            data: {
+                users: [
+                    { name: '十一郎', age: 22, email: 'shiyilang@163.com' },
+                    { name: '十一', age: 23, email: 'shiyi@163.com' },
+                    { name: '十五', age: 24, email: 'shiwu@163.com' }
+                ],
+                user: {},
+                nowIndex: -1//储存要删除项的索引
+            },
+            methods: {
+                addUser() {
+                    this.users.push(this.user);
+                    this.user = {};//添加完成后清空
+                },
+                delUser() {
+
+                    switch (this.nowIndex) {
+                        case -1:
+                            this.users = [];//删除全部
+                            break;
+                        default:
+                            this.users.splice(this.nowIndex, 1);//从指定索引位置开始去删除，删除个数为一个
+                            break;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
