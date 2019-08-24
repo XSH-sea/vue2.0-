@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/axios.min.js"></script>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="send">发送ajax请求</button>
+        <button @click="sendGet">get方式发送ajax请求</button>
+        <button @click="sendPost">post方式发送ajax请求</button>
+        
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                user:{
+                    name:'十一郎',
+                    age:22
+                }
+            },
+            methods: {
+                send() {
+                    axios({
+                        method: 'get',
+                        url: 'user.json'
+                    }).then(function (resp) {
+                        console.log(resp.data);
+                    }).catch(function(resp){
+                        console.log('请求失败！'+resp.status+','+resp.statusText);
+                    })
+                },
+                sendGet(){
+                    //get方法传参第一种方式
+                    // axios.get('server.php?name=十一郎&age=22')
+                    //get方法传参的第二种方式
+                    axios.get('server.php',{
+                        parse:{
+                            name:'十一郎',
+                            age:22
+                        }
+                    })
+                    .then(function(resp){
+                        console.log(resp.data);
+                    }).catch(function(resp){
+                        console.log('请求失败！'+resp.status+','+resp.statusText);
+                    })
+                },
+                sendPost(){
+                    // axios.post('server.php',{
+                    //     name:'十一郎',
+                    //     age:19,
+                    // })
+                    // post方式默认发送数据时，数据表格是Request Payload的形式，而非Form Data的形式 所以不能用json的形式的传参 二十要写键值对
+
+                    //方式一 自己拼接为键值对
+                    // axios.post('server.php','name=十一郎&age=22')
+                    //方式二 使用提供的transformResquest方式
+                    axios.post('server.php',this.user,{
+                        transformResquest:[
+                            function(data){
+                                var params='';
+                                for(var index in data){
+                                    
+                                    params+=index+'='+data[index]+'&'
+                                }
+                               return data; 
+                            }
+                        ]
+                    })
+                     .then(function(resp){
+                        console.log(resp.data);
+                    }).catch(function(resp){
+                        console.log('请求失败！'+resp.status+','+resp.statusText);
+                    })
+                }
+
+            }
+        })
+        </script>
+    </body>
+
+    </html>
