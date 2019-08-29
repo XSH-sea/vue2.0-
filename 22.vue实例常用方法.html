@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}
+		<hr>
+		<h1 ref="Name">{{name}}</h1>
+		<hr>
+		{{user.name}}
+		<h1>{{user.age}}</h1>
+		<button @click="change">改变属性</button>
+		<button @click="add">添加属性</button>
+		<button @click="del">删除属性</button>
+		<hr>
+		<input type="text" v-model="msg">
+		<h1>{{msg}}</h1>
+		<hr>
+		<input type="text" v-model="msg2">
+		<h1>{{msg2}}</h1>
+		<hr>
+		<input type="text" v-model="user.name">
+		<h1>{{user.name}}</h1>
+	</div>
+
+	<script>
+		//常用方法 $mount()  $destroy()  $nextTick()    $set()  $delete()  $watch()
+		var vm=new Vue({
+			// el:'#app',
+			data:{
+				msg:'Hello World!',
+				name:'十一郎',
+				user:{
+					id:110,
+					name:'十一郎',
+
+				},
+				msg2:'你好！'
+			},
+			methods:{
+				change(){
+					this.user.name='shiyilang';
+				},
+				add(){
+					// this.user.sex='男';//普通方式为对象添加属性无法被vue实时监控
+					// this.$set(this.user,'age',22)//使用$set()方法添加属性可以被vue实时监控
+					if(this.user.age){
+						this.user.age++;
+					}else{
+						this.$set(this.user,'age',1);
+					}
+
+				},
+				del(){
+					if(this.user.age){
+						this.$delete(this.user,'age');
+					}
+				}
+			},
+			watch:{//方式二 使用vue提供的watch选项
+				msg2:(newVal,oldVal)=>{
+					console.log('msg2被修改了 原值：'+oldVal+'新值：'+newVal);
+				},
+				user:{
+					handler:(newVal,oldVal)=>{
+						console.log('user被修改了 原值：'+oldVal.name+'新值：'+newVal.name);
+					},
+					deep:true,//深度监视  当对象中的属性发生改变也会被监视
+				}
+				
+			}
+		})
+
+		//vm.$mount()  可以实现手动的挂载实例
+		vm.$mount('#app');
+
+		//vm.$destroy()  销毁vue实例 实例的数据还存在
+		// vm.$destroy();
+		// console.log(vm.msg);
+
+		//$nextTick()  获取更新后的DOM
+		//修改name值
+		vm.name='shiyilang';
+		//页面显示数据改变，控制台输出值没变
+		//DOM还没更新完全 vue实现响应式并不是数据发生了改变之后DOM立马更新 是按照一定的策略来进行DOM更新 需要时间
+		// console.log(vm.$refs.Name.textContent);
+		//$nextTick() 解决了上述问题
+		vm.$nextTick(function(){
+			console.log(vm.$refs.Name.textContent);
+		})  
+
+		//$set(object,key,value)
+
+
+
+		//$delete(object,key)
+
+
+
+		//$watch(data,callback[,opations])
+		//方式一，使用提供的$watch()
+		vm.$watch('msg',function(newVal,oldVal){
+			console.log('msg被修改了 原值：'+oldVal+'新值：'+newVal);
+		})
+	</script>
+</body>
+</html>

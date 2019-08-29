@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 双向绑定用v-modal-->
+
+        <!-- 单向绑定方式一 {{}} -->
+        <!-- v-cloak可以解决闪烁问题 需要结合display：none使用 -->
+        <h1 v-cloak>{{msg}}</h1>
+
+        <!-- 单向绑定方式二  v-text、v-html 不会有闪烁问题-->
+        <h1 v-text="msg"></h1>
+        <h1 v-html="msg"></h1>
+        <!-- v-text和v-html区别 v-text 纯文本  v-html可以识别标签 -->
+
+        <!-- v-once 数据只绑定一次 无法改变 -->
+        <h1 v-once>{{msg}}</h1>
+
+        <!-- v-pre 不编译 直接显示原样 -->
+        <h1 v-pre>{{msg}}</h1>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello World!'
+            },
+            methods: {
+
+            },
+            // created() {
+            //     alert(121213)
+            // },
+        });
+    </script>
+</body>
+
+</html>

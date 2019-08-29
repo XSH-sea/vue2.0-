@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<my-component></my-component>
+	</div>
+
+
+	<template id="wbs">
+		<!-- template标签内部必须有且只有一个根元素 -->
+		<div>
+			<h3>{{msg}}</h3>
+			<ul>
+				<li v-for="val in arr">{{val}}</li>
+			</ul>
+		</div>
+	</template>
+	<script>
+
+	var vm=new Vue({
+		el:'#app',
+		data:{
+
+		},
+		components:{
+			'my-component':{
+				template:'#wbs',
+				data(){
+					return {
+						msg:'十一郎',
+						arr:['Tony Stark','Steve Rogers','Thor','Bruce Banner','Natasha Romanoff','Clint Barton']
+					}
+				}
+			}
+		}
+	})
+	</script>
+	</body>
+	</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}
+
+
+		<h1 ref='name'>十一郎</h1>
+		<h1 ref='age'>22</h1>
+	</div>
+
+
+	<script>
+		//常用属性  $el $data $options $refs
+
+		var vm=new Vue({
+			el:'#app',
+			data:{ 
+				msg:'Hello World!'
+			},
+			show(){
+				 console.log(1111);
+			},
+			num:2222
+		})
+
+
+		//vm.属性名 获取data中的属性
+		console.log(vm.msg);
+
+		//vm.$el 获取vue实例关联的元素
+		console.log(vm.$el);//这是一个DOM对象
+		vm.$el.style.color="blue";
+
+		//vm.$data 获取数据对象data
+		console.log(vm.$data);
+
+		//vm.$options 获取自定义的属性
+		vm.$options.show();
+		console.log(vm.$options.num);
+
+		//vm.$refs 获取页面中所有添加ref属性的元素
+		console.log(vm.$refs.name);
+		console.log(vm.$refs);//获取所有ref属性的元素
+		vm.$refs.age.style.fontSize='12px';
+	</script>
+</body>
+</html>

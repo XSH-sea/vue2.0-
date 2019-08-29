@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 使用全局自定义指令时要在前面加上 v- -->
+		<h1 v-hello>{{msg}}</h1>
+		<button @click="change">点击改变msg数据</button>
+		<hr>
+		<h2 v-wrold>{{msg2}}</h2>
+		<button @click="change2">点击改变msg2数据</button>
+	</div>
+		
+	<script>
+
+		//自定义全局指令
+		Vue.directive('hello',{
+			bind(el,binding){//钩子函数地两个参数
+				alert('指令被绑到元素上时调用，只调用一次 可执行初始化操作');
+				console.log(el);//可以获取绑定元素 是个DOM对象
+				console.log(binding);//指令的一个对象
+			},
+			inserted(){
+				alert('被绑定元素插入到DOM当中时调用');
+			},
+			update(){
+				alert('被绑定元素所在模版更新时调用');
+			},
+			componenUpdated(){
+				alert('被绑定元素所在模版完成一次更新周期时调用');
+			},
+			unbind(){
+				alert('指令与元素解绑时调用，只调用一次');
+			}
+		});
+		//简写形式
+		Vue.directive('wrold',function(){
+			//这里会被bind和update调用
+			alert(111);
+		})
+
+		var vm=new Vue({
+			el:'#app',
+			data:{
+				msg:'Hello Wrold!',
+				msg2:'你好！'
+			},
+			methods:{
+				change() {
+					this.msg='你好！';
+				},
+				change2(){
+					this.msg2='Hello Wrold!';
+				}
+			},
+			directives:{//自定义局部指令
+				//方法一
+				// fouse:{
+				// 	//写钩子函数
+				// }
+
+				
+				// 方法二
+				// fouse:function(){
+
+				// }
+			}
+		})
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{8|addZero}}</h1>
+        <h1>{{12.3445|number(3) }}</h1>
+        <h1>{{currentTime|time}}</h1>
+    </div>
+
+    <script>
+        //第三方过滤器工具库 loadash、date-fns日期格式化、accounting.js货币格式化等
+
+        //自定义过滤器 1、全局过滤器 2、局部过滤器
+
+
+        //自定义全局过滤器
+        Vue.filter('addZero', function (data) {
+            return data = data < 10 ? '0' + data : data;
+        })
+
+        // Vue.filter('number', (data, n) => {
+        //     return data.toFixed(n);
+        // })
+
+        Vue.filter('time', data => {
+            var d = new Date(data);
+            return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+        })
+
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                currentTime: Date.now()
+            },
+            methods: {
+
+            },
+            filters: {//自定义局部过滤器
+                number: function (data, n) {
+                    return data.toFixed(n);
+                },
+
+            }
+
+        });
+    </script>
+</body>
+
+</html>

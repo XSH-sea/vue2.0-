@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<script src="js/vue.js"></script>
+	<style>
+		p{
+			height: 200px;
+			width: 200px;
+			background-color: red;
+			margin: 0 auto;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<button @click="flag=!flag">点击</button>
+		<transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+			<p v-show="flag"></p>
+		</transition>
+	</div>
+
+
+	<script>
+		var vm=new Vue({
+			el:'#app',
+			data:{
+				flag:false
+			},
+			methods:{
+
+			}
+		})
+	</script>
+</body>
+</html>
+

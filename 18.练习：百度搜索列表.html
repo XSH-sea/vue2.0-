@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/vue.js"></script>
+	<script src="js/vue-resource.min.js"></script>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+
+	input{
+		margin: 20px 0 0 20px;
+	}
+
+	.current{
+		background-color: #ccc;
+	}
+
+	ul{
+		list-style-type: none;
+		margin-left: 20px;
+		width: 171px;
+		border: 1px solid #ccc;
+	}
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model="keyword" @keyup="getData($event)" @keydown.up.prevent="keyUp"  @keydown.down.prevent="keyDown">
+		<ul v-show="flag">
+			<li v-for="(val,index) in myData" :class="{current:index==nowIndex}">{{val}}</li>
+		</ul>
+	</div>
+
+	<script>
+	new Vue({
+		el:'#app',
+		data:{
+			keyword:'',
+			myData:[],
+			nowIndex:-1,
+			flag:false
+		},
+		methods:{
+			getData(e){
+				//按方向键上或者下 不发送请求
+				if(e.keyCode==38||e.keyCode==40){
+					return;
+				}
+				else
+				{
+					this.nowIndex=-1;
+					this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+						params:{
+							wd: this.keyword
+						},
+						jsonp:'cb'
+					}).then(function(resp){
+						this.myData=resp.data.s;
+					});
+				}
+				
+				if(this.keyword.length==0){
+					this.flag=false;
+				}else{
+					this.flag=true;
+				}
+
+			},
+			keyDown(){
+				this.nowIndex=this.nowIndex<this.myData.length-1?this.nowIndex+1:0;
+				this.keyword=this.myData[this.nowIndex];
+			},
+			keyUp(){
+				this.nowIndex=this.nowIndex>0?this.nowIndex-1:this.myData.length-1;
+				this.keyword=this.myData[this.nowIndex];
+			}
+		}
+	}) 
+	</script>
+	</body>
+	</html>

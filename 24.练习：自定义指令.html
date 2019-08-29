@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/vue.js"></script>
+	<style>
+	#app div{
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		top: 0;
+	}
+
+	.num1{
+		background-color: red;
+		left: 0;
+	}
+
+	.num2{
+		background-color: blue;
+		right: 0;
+	}
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="num1" v-drag>1</div>
+		<div class="num2" v-drag>2</div>
+	</div>
+
+	<script>
+	var vm=new Vue({
+		el:'#app',
+		data:{
+
+		},
+		methods:{
+
+		},
+		directives:{
+			drag:function(el){
+				el.onmousedown=function(e){
+					var x=e.clientX-el.offsetLeft;
+					var y=e.clientY-el.offsetTop;
+					document.onmousemove=function(e){
+						var X=e.clientX-x;
+						var Y=e.clientY-y;
+						el.style.left=X+'px';
+						el.style.top=Y+'px';
+					}
+				},
+				document.onmouseup=function(){
+					document.onmousemove=null;
+				}
+			}
+		}
+	})
+	</script>
+	</body>
+	</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<script src="js/vue.js"></script>
+	<style>
+		p{
+			height: 100px;
+			width: 200px;
+			background-color: red;
+			margin: 30px auto;
+			line-height: 100px;
+			text-align: center;
+		}
+
+		input{
+			margin: 80px auto 0;
+			display: block;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="text"  v-model="name" @keyup="match">
+		<!-- 多元素时要使用transition-group 且里面的子元素要用可key指定唯一值 -->
+		<transition-group enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+			<p v-show="flag" v-for="(val,index) in arr2" :key="index">{{val}}</p>
+		</transition-group>
+	</div>
+
+
+	<script>
+		var vm=new Vue({
+			el:'#app',
+			data:{
+				flag:false,
+				arr:['Tony Stark','Steve Rogers','Thor','Bruce Banner','Natasha Romanoff','Clint Barton'],
+				name:''
+			},
+			methods:{
+				match(){
+					if(this.name==""){
+						this.flag=false;
+					}else{
+						this.flag=true;
+					}
+				}
+			},
+			computed:{
+				arr2:function(){
+					var temp=[];
+					this.arr.forEach(val=>{
+						if(val.includes(this.name)){
+							temp.push(val);
+						}
+					});
+					return temp;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h1>{{msg}}</h1>
+		<h1>{{msg2}}</h1>
+		<h1>{{reverseMsg}}</h1>
+		<button @click="change">改变msg</button>
+		<br>
+		<h1>{{num}}</h1>
+		<button @click="changeNum">改变num的值</button>
+	</div>
+
+
+	<script>
+		new Vue({
+			el:'#app',
+			data:{
+				msg:'Hello Wrold!',
+				num1:2
+			},
+			methods:{
+				change(){
+					this.msg='i am fine!'
+				},
+				changeNum(){//不是改变num的值 num依赖于num1，改变的是num1的值
+					this.num=999;
+				}
+
+			},
+			computed:{//计算属性 特点：数据可以进行逻辑处理操作  可以将数据进行监控
+				//计算属性的值必须为函数 该函数必须有返回值，用来获取属性 称为get函数
+				msg2:function(){
+					return '你好！';
+				},
+				reverseMsg:function(){//处理数据,同时监控数据 msg改变 发生相印的改变
+					return this.msg.split(' ').reverse().join(' ');
+				},
+				num:{
+					get:function(){//获取
+						return this.num1+1;
+					},
+					set:function() {//设置   num的值依赖于num1
+						this.num1=999;
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

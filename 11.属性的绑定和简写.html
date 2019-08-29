@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-bind 用于属性的绑定 v-bind:src 可以简写成 :src -->
+        <img :src="url" :width='width' :height='height'>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                url: 'https://www.iqiyipic.com/common/fix/site-v4/sprite-headLogo-nonIndex.png',
+                width: '200px',
+                height: '100px'
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

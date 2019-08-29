@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<script src="js/vue.js"></script>
+	<style>
+		/* 选择器前面不能有 id和class */
+		p{
+			height: 200px;
+			width: 200px;
+			background-color: red;
+		}
+
+
+		/* 进入和离开的过程 */
+		.fade-enter-active,.fade-leave-active{
+			transition: all 2s ease;
+		}
+
+		/* 进入后的状态 */
+		.fade-enter-active{
+			opacity: 1;
+			width: 200px;
+			height: 200px;
+		}
+
+		/* 离开后的状态 */
+		.fade-leave-active{
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		/* 初始状态 */
+		.fade-enter{
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+
+
+
+	</style>
+</head>
+<body>
+	<div id="app" class="app">
+		<button @click="flag=!flag">点击</button>
+		<transition name="fade"
+			@before-enter="beforeEnter"
+			@enter="enter"
+			@after-enter="afterEnter"
+			@before-leave="beforeLeave"
+			@leave="leave"
+			@after-leave="afterLeave"
+		>
+			<p v-if="flag"></p>
+		</transition>
+	</div>
+
+	<script>
+		new Vue({
+			el:'#app',
+			data:{
+				flag:false
+			},
+			methods:{
+				beforeEnter(el){
+					// alert('动画进入之前');
+					el.style.backgroundColor="red";
+				},
+				enter(){
+					// alert('动画进入');
+				},
+				afterEnter(el){
+					// alert('动画进入之后');
+					el.style.backgroundColor="green";
+				},
+				beforeLeave(){
+					// alert('动画离开之前');
+				},
+				leave(){
+					// alert('动画离开');
+				},
+				afterLeave(){
+					// alert('动画离开之后');
+				}
+
+
+
+			}
+		})
+	</script>
+</body>
+</html>
